@@ -50,27 +50,28 @@ public class MenuItem extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addComponent(lbIcon)
                 .addGap(18, 18, 18)
-                .addComponent(lbName))
+                .addComponent(lbName)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lbName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+            .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics grphcs) {
         if(selected) {
-            Graphics2D g2=(Graphics2D)g;
+            Graphics2D g2=(Graphics2D)grphcs;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);                
             g2.setColor(new Color(255, 255, 255, 80));
             g2.fillRoundRect(0, 0, getWidth(), getHeight(), 5, 5);
         }
-        super.paintComponent(g); 
+        super.paintComponent(grphcs); 
     }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

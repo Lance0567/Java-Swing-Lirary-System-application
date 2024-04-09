@@ -8,6 +8,7 @@ public class PanelBorder extends javax.swing.JPanel {
 
     public PanelBorder() {
         initComponents();
+        setOpaque(false);
     }
 
 
