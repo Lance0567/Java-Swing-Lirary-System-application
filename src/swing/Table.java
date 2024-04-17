@@ -5,6 +5,7 @@ import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import model.StatusType;
 
 public class Table extends JTable {
@@ -45,6 +46,11 @@ public class Table extends JTable {
             }
 
         });
+    }
+    
+    public void addRow(Object[] row) {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.addRow(row);
     }
 
 }
