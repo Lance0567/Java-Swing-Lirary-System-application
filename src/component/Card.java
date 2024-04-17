@@ -62,7 +62,7 @@ public class Card extends javax.swing.JPanel {
         lbValues.setText("Values");
 
         lbDescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbDescription.setForeground(new java.awt.Color(255, 255, 255));
+        lbDescription.setForeground(new java.awt.Color(228, 225, 225));
         lbDescription.setText("Description");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
