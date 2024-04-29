@@ -17,6 +17,7 @@ public class CellStatus extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         status.setText("tableStatus1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

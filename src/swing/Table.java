@@ -20,7 +20,7 @@ public class Table extends JTable {
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int il) {
                 TableHeader header = new TableHeader(o + "");
                 if (il == 4) {
-                    header.setHorizontalAlignment(JLabel.CENTER);
+                    header.setHorizontalAlignment(JLabel.LEADING);
                 }
                 return header;
             }

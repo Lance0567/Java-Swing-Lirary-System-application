@@ -1,8 +1,12 @@
 package form;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import model.Model_Card;
 import model.StatusType;
+import swing.ScrollBar;
 
 public class Form_Home extends javax.swing.JPanel {
 
@@ -12,7 +16,14 @@ public class Form_Home extends javax.swing.JPanel {
         card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/people.png")), "Students", "400", "Increased by 30%"));
         card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/Issued.png")), "Issued Books", "10", "Increased by 40%"));
         card4.setData(new Model_Card(new ImageIcon(getClass().getResource("/icon/statistics.png")), "Statistics", "300", "Increased by 50%"));
+        
         // add row table
+        spTable.setVerticalScrollBar(new ScrollBar());
+        spTable.getVerticalScrollBar().setBackground(Color.WHITE);
+        spTable.getViewport().setBackground(Color.WHITE);
+        JPanel p =  new JPanel();
+        p.setBackground(Color.WHITE);
+        spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
         table.addRow(new Object[]{"Mike Bhand", "mikebhand@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
         table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
         table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
@@ -40,7 +51,7 @@ public class Form_Home extends javax.swing.JPanel {
         card4 = new component.Card();
         panelBorder1 = new swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        spTable = new javax.swing.JScrollPane();
         table = new swing.Table();
 
         setBackground(new java.awt.Color(242, 242, 242));
@@ -71,7 +82,7 @@ public class Form_Home extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
         jLabel1.setText("Account Table");
 
-        jScrollPane1.setBorder(null);
+        spTable.setBorder(null);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,7 +100,7 @@ public class Form_Home extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(table);
+        spTable.setViewportView(table);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -98,7 +109,7 @@ public class Form_Home extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(spTable)
                     .addGroup(panelBorder1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 1027, Short.MAX_VALUE)))
@@ -110,8 +121,8 @@ public class Form_Home extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -143,9 +154,9 @@ public class Form_Home extends javax.swing.JPanel {
     private component.Card card3;
     private component.Card card4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLayeredPane panel;
     private swing.PanelBorder panelBorder1;
+    private javax.swing.JScrollPane spTable;
     private swing.Table table;
     // End of variables declaration//GEN-END:variables
 }
