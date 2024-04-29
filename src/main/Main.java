@@ -38,7 +38,7 @@ public class Main extends javax.swing.JFrame {
         menu1 = new component.Menu();
         header2 = new component.Header();
         sp = new javax.swing.JScrollPane();
-        form_Home2 = new form.Form_Home();
+        form_Home1 = new form.Form_Home();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -50,7 +50,8 @@ public class Main extends javax.swing.JFrame {
         header2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
         sp.setBorder(null);
-        sp.setViewportView(form_Home2);
+        sp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setViewportView(form_Home1);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -71,7 +72,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(header2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -126,7 +127,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private form.Form_Home form_Home2;
+    private form.Form_Home form_Home1;
     private component.Header header2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private component.Menu menu1;

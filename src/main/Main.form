@@ -70,7 +70,7 @@
               <Group type="102" attributes="0">
                   <Component id="header2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="sp" pref="670" max="32767" attributes="0"/>
+                  <Component id="sp" pref="689" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -91,11 +91,12 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
+            <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
           </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="form.Form_Home" name="form_Home2">
+            <Component class="form.Form_Home" name="form_Home1">
             </Component>
           </SubComponents>
         </Container>
