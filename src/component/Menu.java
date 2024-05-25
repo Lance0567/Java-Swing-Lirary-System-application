@@ -1,5 +1,6 @@
 package component;
 
+import event.EventMenuSelected;
 import model.Model_Menu;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -14,6 +15,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Menu extends javax.swing.JPanel {
+
+    private EventMenuSelected event;
+
+    public void addEventMenuSelected(EventMenuSelected event) {
+        this.event = event;
+        listMenu1.addEventMenuSelected(event);
+    }
 
     public Menu() {
         initComponents();
@@ -39,7 +47,7 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Model_Menu("10", "Logout", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
     }
-    
+
     public void scaleImage() {
         ImageIcon icon = new ImageIcon("C:\\Users\\pc\\Documents\\NetBeansProjects\\LibrarySystem\\src\\icon\\ustlogo.png");
         // scalling of img to fit in jlabel
