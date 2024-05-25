@@ -37,6 +37,13 @@ public class ListMenu<E extends Object> extends JList<E> {
                     repaint();
                 }
             }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                overIndex = -1;
+                repaint();
+            }
+
         });
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
@@ -49,7 +56,7 @@ public class ListMenu<E extends Object> extends JList<E> {
                         if (menu.getType() == Model_Menu.MenuType.MENU) {
                             overIndex = index;
                         } else {
-                            
+                            overIndex = -1;
                         }
                         repaint();
                     }
