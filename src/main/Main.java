@@ -23,22 +23,31 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    private Form_Home home;
+    private Form_1 form1;
+    private Form_2 form2;
+    private Form_3 form3;
+
     public Main() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
+        home = new Form_Home();
+        form1 = new Form_1();
+        form2 = new Form_2();
+        form3 = new Form_3();
         menu.initMoving(Main.this);
 //        sp.setVerticalScrollBar(new ScrollBar()); Scroll bar
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    setForm(new Form_Home());
+                    setForm(home);
                 } else if (index == 1) {
-                    setForm(new Form_1());
+                    setForm(form1);
                 } else if (index == 2) {
-                    setForm(new Form_2());
+                    setForm(form2);
                 } else if (index == 3) {
-                    setForm(new Form_3());
+                    setForm(form3);
                 }
             }
         });
