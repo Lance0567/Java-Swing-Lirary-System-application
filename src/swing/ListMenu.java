@@ -4,6 +4,7 @@ import model.Model_Menu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -14,6 +15,7 @@ public class ListMenu<E extends Object> extends JList<E> {
 
     private final DefaultListModel model;
     private int selectedIndex = -1;
+    private int overIndex = -1;
 
     public ListMenu() {
         model = new DefaultListModel();
@@ -33,6 +35,15 @@ public class ListMenu<E extends Object> extends JList<E> {
                         selectedIndex = index;
                     }
                     repaint();
+                }
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int index = locationToIndex(e.getPoint());
+                if (index != overIndex) {
+                    Object o = model.getElementAt(index);
                 }
             }
         });
