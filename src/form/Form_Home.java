@@ -85,6 +85,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         spTable.setBorder(null);
 
+        table.setBackground(new java.awt.Color(255, 255, 255));
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

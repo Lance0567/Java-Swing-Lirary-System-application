@@ -39,7 +39,7 @@ public class Table extends JTable {
                     }
                     return com;
                 } else {
-                    StatusType type = (StatusType)o;
+                    StatusType type = (StatusType) o;
                     CellStatus cell = new CellStatus(type);
                     return cell;
                 }
@@ -47,7 +47,7 @@ public class Table extends JTable {
 
         });
     }
-    
+
     public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);

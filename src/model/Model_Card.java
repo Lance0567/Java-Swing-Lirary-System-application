@@ -42,13 +42,13 @@ public class Model_Card {
         this.values = values;
         this.description = description;
     }
-    
+
     public Model_Card() {
     }
-    
+
     private Icon icon;
     private String title;
     private String values;
     private String description;
-    
+
 }

@@ -288,7 +288,6 @@ public class Form_2 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;

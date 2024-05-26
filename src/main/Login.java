@@ -232,19 +232,28 @@ public class Login extends javax.swing.JFrame {
                 ps = db.getConnection().prepareStatement(query);
                 ps.setString(1, username);
                 ps.setString(2, password);
-                
+
                 rs = ps.executeQuery();
+
+                // check if the user exist
                 
-                if(rs.next()) {
-                    System.out.println("YES");
+                // if the user exist
+                if (rs.next()) {
+                    
+                    // display the main
+                    Main main = new Main();
+                    main.setVisible(true);
+
+                    // close the login form (this form)
+                    this.dispose();
+
                 } else {
-                    System.out.println("NO");
+                    JOptionPane.showMessageDialog(null, "Invalid Username", "Wrong Data", 0);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

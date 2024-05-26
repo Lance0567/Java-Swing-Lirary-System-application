@@ -40,7 +40,8 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Model_Menu("16", "All Books", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("12", "Issued books", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("13", "Turn over books", Model_Menu.MenuType.MENU));
-//        listMenu1.addItem(new Model_Menu("14", "Reports", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("18", "Genre", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("17", "Author", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY)); 
 
         listMenu1.addItem(new Model_Menu("", "My Data", Model_Menu.MenuType.TITLE));                 
