@@ -44,6 +44,8 @@ public class Form_2 extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         lbFullName = new javax.swing.JLabel();
         tfFullName = new javax.swing.JTextField();
+        lbGender1 = new javax.swing.JLabel();
+        cbGender1 = new javax.swing.JComboBox<>();
         panelBorder2 = new swing.PanelBorder();
         spTable = new javax.swing.JScrollPane();
         studentTable = new swing.Table();
@@ -51,29 +53,33 @@ public class Form_2 extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(242, 242, 242));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Manage Student Record");
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setForeground(new java.awt.Color(255, 102, 0));
 
-        lbStudentNumber.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbStudentNumber.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbStudentNumber.setForeground(new java.awt.Color(0, 0, 0));
         lbStudentNumber.setText("Student Number");
 
-        lbEmailAddress.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbEmailAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbEmailAddress.setForeground(new java.awt.Color(0, 0, 0));
         lbEmailAddress.setText("Email Address");
 
-        lbYear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tfStudentNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        tfEmailAddress.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        lbYear.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbYear.setForeground(new java.awt.Color(0, 0, 0));
         lbYear.setText("Year");
 
         cbYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "1st Year", "2nd Year", "3rd Year", "4th Year" }));
 
-        lbCourse.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbCourse.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbCourse.setForeground(new java.awt.Color(0, 0, 0));
         lbCourse.setText("Course");
 
@@ -83,7 +89,7 @@ public class Form_2 extends javax.swing.JPanel {
         cbGender.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Male", "Female" }));
 
-        lbGender.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbGender.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbGender.setForeground(new java.awt.Color(0, 0, 0));
         lbGender.setText("Gender");
 
@@ -112,9 +118,18 @@ public class Form_2 extends javax.swing.JPanel {
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete");
 
-        lbFullName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbFullName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbFullName.setForeground(new java.awt.Color(0, 0, 0));
         lbFullName.setText("Full Name");
+
+        tfFullName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        lbGender1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbGender1.setForeground(new java.awt.Color(0, 0, 0));
+        lbGender1.setText("Status");
+
+        cbGender1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbGender1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Approved", "Pending", "Reject" }));
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -137,9 +152,11 @@ public class Form_2 extends javax.swing.JPanel {
                                 .addComponent(cbYear, 0, 301, Short.MAX_VALUE)
                                 .addComponent(lbYear)
                                 .addComponent(lbEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfFullName))))
+                                .addComponent(tfFullName))
+                            .addComponent(lbGender1)
+                            .addComponent(cbGender1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(46, 46, 46)
                         .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelBorder1Layout.createSequentialGroup()
                                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,29 +173,33 @@ public class Form_2 extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbStudentNumber)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tfStudentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0)
+                .addComponent(tfStudentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbFullName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tfFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0)
+                .addComponent(tfFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbEmailAddress)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbYear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbYear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbYear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addComponent(lbCourse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbGender)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbGender1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbGender1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -186,7 +207,7 @@ public class Form_2 extends javax.swing.JPanel {
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
@@ -199,7 +220,7 @@ public class Form_2 extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Student Number", "Full Name", "Year", "Course", "Gender"
+                "Student #", "Full Name", "Year", "Course", "Gender"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -254,12 +275,12 @@ public class Form_2 extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addComponent(panelBorder2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelBorder2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(13, 13, 13))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -275,6 +296,7 @@ public class Form_2 extends javax.swing.JPanel {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbCourse;
     private javax.swing.JComboBox<String> cbGender;
+    private javax.swing.JComboBox<String> cbGender1;
     private javax.swing.JComboBox<String> cbYear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
@@ -282,6 +304,7 @@ public class Form_2 extends javax.swing.JPanel {
     private javax.swing.JLabel lbEmailAddress;
     private javax.swing.JLabel lbFullName;
     private javax.swing.JLabel lbGender;
+    private javax.swing.JLabel lbGender1;
     private javax.swing.JLabel lbStudentNumber;
     private javax.swing.JLabel lbYear;
     private swing.PanelBorder panelBorder1;

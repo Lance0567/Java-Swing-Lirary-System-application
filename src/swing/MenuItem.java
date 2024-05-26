@@ -20,7 +20,7 @@ public class MenuItem extends javax.swing.JPanel {
             lbName.setText(data.getName());
         } else if (data.getType() == Model_Menu.MenuType.TITLE) {
             lbIcon.setText(data.getName());
-            lbIcon.setFont(new Font("sansserif", 1, 12));
+            lbIcon.setFont(new Font("sansserif", 1, 14));
             lbName.setVisible(false);
         } else {
             lbName.setText(" ");

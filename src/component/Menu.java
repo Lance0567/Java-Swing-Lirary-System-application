@@ -32,22 +32,24 @@ public class Menu extends javax.swing.JPanel {
 
     private void init() {
         listMenu1.addItem(new Model_Menu("1", "Dashboard", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("2", "UI Elements", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("3", "Comonents", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("4", "Forms Stuff", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("5", "Date Table", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("11", "Book Management", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("15", "Student Management", Model_Menu.MenuType.MENU));               
         listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
+        
+        listMenu1.addItem(new Model_Menu("", "Books", Model_Menu.MenuType.TITLE));       
+        listMenu1.addItem(new Model_Menu("16", "All Books", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("12", "Issued books", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("13", "Turn over books", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("14", "Reports", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY)); 
 
-        listMenu1.addItem(new Model_Menu("", "My Data", Model_Menu.MenuType.TITLE));
-        listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
-        listMenu1.addItem(new Model_Menu("6", "Icons", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("7", "Sample Page", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("8", "Extra", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("9", "More", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("", "My Data", Model_Menu.MenuType.TITLE));                 
+        listMenu1.addItem(new Model_Menu("9", "Settings", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("10", "Logout", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
     }
 
+    // Ust logo responsive
 //    public void scaleImage() {
 //        ImageIcon icon = new ImageIcon("C:\\Users\\pc\\Documents\\NetBeansProjects\\LibrarySystem\\src\\icon\\ustlogo.png");
 //        // scalling of img to fit in jlabel
@@ -88,6 +90,8 @@ public class Menu extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
 
+        listMenu1.setForeground(new java.awt.Color(255, 255, 255));
+
         ustLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/rsz_new-ust-logo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -109,11 +113,12 @@ public class Menu extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(ustLogo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(listMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    // Sidebar navigation background color
     @Override
     protected void paintChildren(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
