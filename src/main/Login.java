@@ -216,11 +216,13 @@ public class Login extends javax.swing.JFrame {
         ResultSet rs;
         PreparedStatement ps;
 
-        // select the query
+        // select the query for username check
+        String queryUsername = "SELECT * FROM users WHERE username = ?";
+        // select the query for username and password check
         String query = "SELECT * FROM users WHERE username = ? AND password = ?";
 
         // check if the fields are empty
-        if (username.trim().equals("") & password.trim().equals("")) {
+        if (username.trim().equals("") && password.trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter The Username & Password", "Empty Fields", 2);
         } else if (username.trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter The Username", "Empty Fields", 2);
@@ -229,24 +231,31 @@ public class Login extends javax.swing.JFrame {
         } else {
             try {
                 // get the connection from the class db
-                ps = db.getConnection().prepareStatement(query);
+                ps = db.getConnection().prepareStatement(queryUsername);
                 ps.setString(1, username);
-                ps.setString(2, password);
 
                 rs = ps.executeQuery();
 
-                // check if the user exist
-                
-                // if the user exist
+                // check if the username exists
                 if (rs.next()) {
-                    
-                    // display the main
-                    Main main = new Main();
-                    main.setVisible(true);
+                    // username exists, now check the password
+                    ps = db.getConnection().prepareStatement(query);
+                    ps.setString(1, username);
+                    ps.setString(2, password);
 
-                    // close the login form (this form)
-                    this.dispose();
+                    rs = ps.executeQuery();
 
+                    // check if the user exist
+                    if (rs.next()) {
+                        // display the main
+                        Main main = new Main();
+                        main.setVisible(true);
+
+                        // close the login form (this form)
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Invalid Password", "Wrong Data", 0);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid Username", "Wrong Data", 0);
                 }
