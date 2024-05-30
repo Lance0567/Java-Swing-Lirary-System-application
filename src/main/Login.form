@@ -221,6 +221,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfUsername">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="name" type="java.lang.String" value="" noResource="true"/>
           </Properties>
@@ -281,6 +284,11 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JPasswordField" name="pfPassword">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

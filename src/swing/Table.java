@@ -33,7 +33,9 @@ public class Table extends JTable {
                     com.setBackground(Color.WHITE);
                     setBorder(noFocusBorder);
                     if (selected) {
-                        com.setForeground(new Color(234, 129, 11));
+                        com.setFont(new java.awt.Font("Segoe UI", 1, 14));
+                        com.setBackground(new Color(153, 153, 153));
+                        com.setForeground(new Color(40, 40, 40));
                     } else {
                         com.setForeground(new Color(102, 102, 102));
                     }

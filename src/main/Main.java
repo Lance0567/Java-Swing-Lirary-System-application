@@ -37,11 +37,13 @@ public class Main extends javax.swing.JFrame {
         form1 = new Form_1();
         form2 = new Form_2();
         form3 = new Form_3();
+        form8 = new Form_8();
         menu.initMoving(Main.this);
 //        sp.setVerticalScrollBar(new ScrollBar()); Scroll bar
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {                
+                System.out.println("Selected index : " + index);
                 if (index == 0) {
                     setForm(home);
                 } else if (index == 1) {

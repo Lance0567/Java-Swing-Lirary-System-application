@@ -11,10 +11,11 @@ public class TableHeader extends JLabel {
     public TableHeader(String text) {
         super(text);
         setOpaque(true);
-        setBackground(Color.WHITE);
-        setFont(new Font("Sansserif", 1, 12));
-        setForeground(new Color(102, 102, 102));
+        setBackground(new Color(247, 183, 51));
+        setFont(new Font("Sansserif", 1, 16));
+        setForeground(Color.WHITE);
         setBorder(new EmptyBorder(10, 5, 10, 5));
+        
     }
 
     @Override

@@ -4,17 +4,25 @@
  */
 package form;
 
-/**
- *
- * @author pc
- */
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Genre;
+import model.StatusType;
+
 public class Form_8 extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Form_8
-     */
+    model.Genre genre = new model.Genre();
+
     public Form_8() {
         initComponents();
+
+        // Hide warning
+        lbWarning.setVisible(false);
+
+        // populate Jtable With Genres
+        populateJTableWithGenres();
     }
 
     /**
@@ -29,26 +37,17 @@ public class Form_8 extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         panelBorder1 = new swing.PanelBorder();
         lbStudentNumber = new javax.swing.JLabel();
-        lbEmailAddress = new javax.swing.JLabel();
-        tfStudentNumber = new javax.swing.JTextField();
-        tfEmailAddress = new javax.swing.JTextField();
-        lbYear = new javax.swing.JLabel();
-        cbYear = new javax.swing.JComboBox<>();
-        lbCourse = new javax.swing.JLabel();
-        cbCourse = new javax.swing.JComboBox<>();
-        cbGender = new javax.swing.JComboBox<>();
-        lbGender = new javax.swing.JLabel();
+        tfID = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         lbFullName = new javax.swing.JLabel();
-        tfFullName = new javax.swing.JTextField();
-        lbGender1 = new javax.swing.JLabel();
-        cbGender1 = new javax.swing.JComboBox<>();
+        tfName = new javax.swing.JTextField();
+        lbWarning = new javax.swing.JLabel();
         panelBorder2 = new swing.PanelBorder();
         spTable = new javax.swing.JScrollPane();
-        studentTable = new swing.Table();
+        bookGenreTable = new swing.Table();
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(242, 242, 242));
@@ -62,41 +61,19 @@ public class Form_8 extends javax.swing.JPanel {
 
         lbStudentNumber.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbStudentNumber.setForeground(new java.awt.Color(0, 0, 0));
-        lbStudentNumber.setText("Student Number");
+        lbStudentNumber.setText("ID:");
 
-        lbEmailAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbEmailAddress.setForeground(new java.awt.Color(0, 0, 0));
-        lbEmailAddress.setText("Email Address");
-
-        tfStudentNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        tfEmailAddress.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        lbYear.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbYear.setForeground(new java.awt.Color(0, 0, 0));
-        lbYear.setText("Year");
-
-        cbYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "1st Year", "2nd Year", "3rd Year", "4th Year" }));
-
-        lbCourse.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbCourse.setForeground(new java.awt.Color(0, 0, 0));
-        lbCourse.setText("Course");
-
-        cbCourse.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "BSCpE", "BSCS", "BSCE", "BSIE" }));
-
-        cbGender.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Male", "Female" }));
-
-        lbGender.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbGender.setForeground(new java.awt.Color(0, 0, 0));
-        lbGender.setText("Gender");
+        tfID.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         btnUpdate.setBackground(new java.awt.Color(51, 51, 51));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(51, 51, 51));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -112,24 +89,31 @@ public class Form_8 extends javax.swing.JPanel {
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnDelete.setBackground(new java.awt.Color(51, 51, 51));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         lbFullName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbFullName.setForeground(new java.awt.Color(0, 0, 0));
-        lbFullName.setText("Full Name");
+        lbFullName.setText("Name:");
 
-        tfFullName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tfName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        lbGender1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbGender1.setForeground(new java.awt.Color(0, 0, 0));
-        lbGender1.setText("Status");
-
-        cbGender1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbGender1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Approved", "Pending", "Reject" }));
+        lbWarning.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbWarning.setForeground(new java.awt.Color(255, 0, 51));
+        lbWarning.setText("* enter the genre name");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -141,22 +125,12 @@ public class Form_8 extends javax.swing.JPanel {
                         .addGap(15, 15, 15)
                         .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbStudentNumber)
-                            .addComponent(tfStudentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbGender)
-                            .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbCourse)
-                            .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lbFullName)
-                                .addComponent(tfEmailAddress)
-                                .addComponent(cbYear, 0, 301, Short.MAX_VALUE)
-                                .addComponent(lbYear)
-                                .addComponent(lbEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfFullName))
-                            .addComponent(lbGender1)
-                            .addComponent(cbGender1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbFullName)
+                            .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbWarning)))
                     .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(37, 37, 37)
                         .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelBorder1Layout.createSequentialGroup()
                                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,35 +145,17 @@ public class Form_8 extends javax.swing.JPanel {
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addComponent(lbStudentNumber)
                 .addGap(0, 0, 0)
-                .addComponent(tfStudentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbFullName)
                 .addGap(0, 0, 0)
-                .addComponent(tfFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbEmailAddress)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbYear)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbYear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(lbCourse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbGender)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbGender1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbGender1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbWarning)
+                .addGap(47, 47, 47)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,7 +163,7 @@ public class Form_8 extends javax.swing.JPanel {
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
@@ -215,23 +171,20 @@ public class Form_8 extends javax.swing.JPanel {
 
         spTable.setBorder(null);
 
-        studentTable.setModel(new javax.swing.table.DefaultTableModel(
+        bookGenreTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Student #", "Full Name", "Year", "Course", "Gender"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            }
+        ));
+        bookGenreTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bookGenreTableMouseClicked(evt);
             }
         });
-        spTable.setViewportView(studentTable);
+        spTable.setViewportView(bookGenreTable);
 
         javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
         panelBorder2.setLayout(panelBorder2Layout);
@@ -239,14 +192,14 @@ public class Form_8 extends javax.swing.JPanel {
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelBorder2Layout.setVerticalGroup(
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spTable)
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -285,34 +238,122 @@ public class Form_8 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        // add new genre
+        String name = tfName.getText();
+
+        // check if the textfield is empty
+        if (name.isEmpty()) {
+            lbWarning.setVisible(true);
+        } else {
+            lbWarning.setVisible(false);
+            genre.addGenre(name);
+
+            // refresh the table with Genres
+            populateJTableWithGenres();
+            
+            // clear the name textfield            
+            tfName.setText("");
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // edit the selected genre
+        String name = tfName.getText();
+
+        // check if the textfield is empty
+        if (name.isEmpty()) {
+            lbWarning.setVisible(true);
+        } else {
+            try {
+                int id = Integer.parseInt(tfID.getText());
+                lbWarning.setVisible(false);
+                genre.updateGenre(id, name);
+
+                // refresh the table with Genres
+                populateJTableWithGenres();
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid Genre ID - " + e.getMessage(), "error", 0);
+            }
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // clear the textfield
+        tfID.setText("");
+        tfName.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // delete the selected genre
+        try {
+            int id = Integer.parseInt(tfID.getText());
+            genre.removeGenre(id);
+
+            // refresh the table with Genres
+            populateJTableWithGenres();
+
+            // clear the textfields
+            tfID.setText("");
+            tfName.setText("");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid Genre ID - " + e.getMessage(), "error", 0);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    // display the selected genre
+    private void bookGenreTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookGenreTableMouseClicked
+        // get the selected row index
+        int index = bookGenreTable.getSelectedRow();
+
+        // get values
+        String id = bookGenreTable.getValueAt(index, 0).toString();
+        String name = bookGenreTable.getValueAt(index, 1).toString();
+
+        // show data in textfields
+        tfID.setText(id);
+        tfName.setText(name);
+    }//GEN-LAST:event_bookGenreTableMouseClicked
+
+    // create a function to populate the jtable with genres
+    public void populateJTableWithGenres() {
+        ArrayList<model.Genre> genreList = genre.genreList();
+
+        // jtable columns
+        String[] colNames = {"ID", "Name"};
+
+        // row
+        Object[][] rows = new Object[genreList.size()][colNames.length];
+
+        for (int i = 0; i < genreList.size(); i++) {
+            rows[i][0] = genreList.get(i).getId();
+            rows[i][1] = genreList.get(i).getName();
+        }
+
+        DefaultTableModel model = new DefaultTableModel(rows, colNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        bookGenreTable.setModel(model);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private swing.Table bookGenreTable;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox<String> cbCourse;
-    private javax.swing.JComboBox<String> cbGender;
-    private javax.swing.JComboBox<String> cbGender1;
-    private javax.swing.JComboBox<String> cbYear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lbCourse;
-    private javax.swing.JLabel lbEmailAddress;
     private javax.swing.JLabel lbFullName;
-    private javax.swing.JLabel lbGender;
-    private javax.swing.JLabel lbGender1;
     private javax.swing.JLabel lbStudentNumber;
-    private javax.swing.JLabel lbYear;
+    private javax.swing.JLabel lbWarning;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private javax.swing.JScrollPane spTable;
-    private swing.Table studentTable;
-    private javax.swing.JTextField tfEmailAddress;
-    private javax.swing.JTextField tfFullName;
-    private javax.swing.JTextField tfStudentNumber;
+    private javax.swing.JTextField tfID;
+    private javax.swing.JTextField tfName;
     // End of variables declaration//GEN-END:variables
 }
