@@ -10,6 +10,7 @@ import form.Form_1;
 import form.Form_2;
 import form.Form_3;
 import form.Form_8;
+import form.Form_9;
 import form.Form_Home;
 import java.awt.Color;
 import javax.swing.JComponent;
@@ -29,6 +30,7 @@ public class Main extends javax.swing.JFrame {
     private Form_2 form2;
     private Form_3 form3;
     private Form_8 form8;
+    private Form_9 form9;
 
     public Main() {
         initComponents();
@@ -38,12 +40,13 @@ public class Main extends javax.swing.JFrame {
         form2 = new Form_2();
         form3 = new Form_3();
         form8 = new Form_8();
+        form9 = new Form_9();
         menu.initMoving(Main.this);
 //        sp.setVerticalScrollBar(new ScrollBar()); Scroll bar
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {                
-                System.out.println("Selected index : " + index);
+//                System.out.println("Selected index : " + index);
                 if (index == 0) {
                     setForm(home);
                 } else if (index == 1) {
@@ -54,6 +57,8 @@ public class Main extends javax.swing.JFrame {
                     setForm(form3);
                 } else if (index == 8) {
                     setForm(form8);
+                } else if (index == 9) {
+                    setForm(form9);                
                 } else if (index == 13) {
                     Login login = new Login();
                     login.setVisible(true);                       

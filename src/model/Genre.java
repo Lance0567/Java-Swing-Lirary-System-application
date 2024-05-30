@@ -59,7 +59,7 @@ public class Genre {
             Logger.getLogger(Genre.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     // update genre by id function
     public void updateGenre(int id, String name) {
         String updateQuery = "UPDATE book_genres SET name = ? WHERE id = ?";
@@ -68,7 +68,7 @@ public class Genre {
 
             ps.setString(1, name);
             ps.setInt(2, id);
-                        
+
             if (ps.executeUpdate() != 0) {
                 JOptionPane.showMessageDialog(null, "Genre Updated", "update genre", 1);
             } else {
@@ -76,17 +76,17 @@ public class Genre {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Genre.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
-    
+
     // remove genre by id function
     public void removeGenre(int id) {
         String removeQuery = "DELETE FROM book_genres WHERE id = ?";
         try {
             PreparedStatement ps = db.getConnection().prepareStatement(removeQuery);
-            
+
             ps.setInt(1, id);
-                        
+
             if (ps.executeUpdate() != 0) {
                 JOptionPane.showMessageDialog(null, "Genre Deleted", "remove", 1);
             } else {
@@ -94,32 +94,31 @@ public class Genre {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Genre.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
-    
+
     // function to populate arraylist with genres
     public ArrayList<Genre> genreList() {
-    ArrayList<Genre> gList = new ArrayList<>();
-    
-    String selectQuery = "SELECT * FROM book_genres";
-    ResultSet rs;
-    PreparedStatement ps;
-    
-    
+        ArrayList<Genre> gList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM book_genres";
+        ResultSet rs;
+        PreparedStatement ps;
+
         try {
             ps = db.getConnection().prepareStatement(selectQuery);
             rs = ps.executeQuery();
-            
+
             Genre genre;
-            while(rs.next()) {
+            while (rs.next()) {
                 genre = new Genre(rs.getInt("id"), rs.getString("name"));
                 gList.add(genre);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Genre.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        
+        }
+
         return gList;
     }
 }

@@ -29,7 +29,7 @@ public class Table extends JTable {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean bln1, int i, int il) {
                 if (il != 4) {
-                    Component com = super.getTableCellRendererComponent(jtable, o, selected, bln1, i, il);
+                    Component com = super.getTableCellRendererComponent(jtable, o, selected, bln1, i, il);                    
                     com.setBackground(Color.WHITE);
                     setBorder(noFocusBorder);
                     if (selected) {

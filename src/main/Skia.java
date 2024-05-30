@@ -45,7 +45,7 @@ public class Skia extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("UST Legazpi Library System");
 
-        MyProgressBar.setBackground(new java.awt.Color(51, 51, 51));
+        MyProgressBar.setBackground(new java.awt.Color(102, 102, 102));
 
         Percentage.setBackground(new java.awt.Color(255, 255, 255));
         Percentage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
