@@ -1,20 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package form;
 
-/**
- *
- * @author pc
- */
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.videoio.VideoCapture;
+
 public class Form_2 extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Form_1
-     */
+    static {
+        System.out.println("");
+    }
+
+//    private JLabel lbDesProfile;
+//    private JButton btnCaptureProfile;
+    model.Student student = new model.Student();
+
     public Form_2() {
         initComponents();
+
+        // connected class
+        model.Func_Class func = new model.Func_Class();
+
+        // Hide
+        lbID.setVisible(false);
+        tfID.setVisible(false);
+
+        // Hide warning
+        lbEmptyStudentNumber.setVisible(false);
+        lbEmptyYear.setVisible(false);
+        lbEmptyPhoneNumber.setVisible(false);
+        lbEmptyFullName.setVisible(false);
+        lbEmptyEmailAddress.setVisible(false);
+        lbEmptyCourse.setVisible(false);
+
+        // customize the table
+        // populate JTable with Students
+        populateJTableWithStudents();
     }
 
     /**
@@ -44,12 +80,23 @@ public class Form_2 extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         lbFullName = new javax.swing.JLabel();
         tfFullName = new javax.swing.JTextField();
-        lbGender1 = new javax.swing.JLabel();
-        cbGender1 = new javax.swing.JComboBox<>();
+        lbPhoneNumber = new javax.swing.JLabel();
+        tfPhoneNumber = new javax.swing.JTextField();
+        lbEmptyFullName = new javax.swing.JLabel();
+        lbEmptyEmailAddress = new javax.swing.JLabel();
+        lbEmptyPhoneNumber = new javax.swing.JLabel();
+        lbEmptyYear = new javax.swing.JLabel();
+        lbEmptyCourse = new javax.swing.JLabel();
+        lbEmptyStudentNumber = new javax.swing.JLabel();
+        lbProfilePicture = new javax.swing.JLabel();
+        lbDesProfile = new javax.swing.JLabel();
+        btnCaptureProfile = new javax.swing.JButton();
         panelBorder2 = new swing.PanelBorder();
         spTable = new javax.swing.JScrollPane();
         studentTable = new swing.Table();
         jSeparator1 = new javax.swing.JSeparator();
+        lbID = new javax.swing.JLabel();
+        tfID = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(242, 242, 242));
 
@@ -62,11 +109,11 @@ public class Form_2 extends javax.swing.JPanel {
 
         lbStudentNumber.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbStudentNumber.setForeground(new java.awt.Color(0, 0, 0));
-        lbStudentNumber.setText("Student Number");
+        lbStudentNumber.setText("Student Number:");
 
         lbEmailAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbEmailAddress.setForeground(new java.awt.Color(0, 0, 0));
-        lbEmailAddress.setText("Email Address");
+        lbEmailAddress.setText("Email Address:");
 
         tfStudentNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
@@ -74,14 +121,14 @@ public class Form_2 extends javax.swing.JPanel {
 
         lbYear.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbYear.setForeground(new java.awt.Color(0, 0, 0));
-        lbYear.setText("Year");
+        lbYear.setText("Year:");
 
         cbYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "1st Year", "2nd Year", "3rd Year", "4th Year" }));
 
         lbCourse.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbCourse.setForeground(new java.awt.Color(0, 0, 0));
-        lbCourse.setText("Course");
+        lbCourse.setText("Course:");
 
         cbCourse.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "BSCpE", "BSCS", "BSCE", "BSIE" }));
@@ -91,12 +138,17 @@ public class Form_2 extends javax.swing.JPanel {
 
         lbGender.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbGender.setForeground(new java.awt.Color(0, 0, 0));
-        lbGender.setText("Gender");
+        lbGender.setText("Gender:");
 
         btnUpdate.setBackground(new java.awt.Color(51, 51, 51));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(51, 51, 51));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -112,83 +164,167 @@ public class Form_2 extends javax.swing.JPanel {
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnDelete.setBackground(new java.awt.Color(51, 51, 51));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         lbFullName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbFullName.setForeground(new java.awt.Color(0, 0, 0));
-        lbFullName.setText("Full Name");
+        lbFullName.setText("Full Name:");
 
         tfFullName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        lbGender1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbGender1.setForeground(new java.awt.Color(0, 0, 0));
-        lbGender1.setText("Status");
+        lbPhoneNumber.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbPhoneNumber.setForeground(new java.awt.Color(0, 0, 0));
+        lbPhoneNumber.setText("Phone Number:");
 
-        cbGender1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbGender1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Approved", "Pending", "Reject" }));
+        tfPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        lbEmptyFullName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbEmptyFullName.setForeground(new java.awt.Color(255, 0, 0));
+        lbEmptyFullName.setText("* enter the fullname");
+
+        lbEmptyEmailAddress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbEmptyEmailAddress.setForeground(new java.awt.Color(255, 0, 0));
+        lbEmptyEmailAddress.setText("* enter the email address");
+
+        lbEmptyPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbEmptyPhoneNumber.setForeground(new java.awt.Color(255, 0, 0));
+        lbEmptyPhoneNumber.setText("* enter the phone number");
+
+        lbEmptyYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbEmptyYear.setForeground(new java.awt.Color(255, 0, 0));
+        lbEmptyYear.setText("* enter the year");
+
+        lbEmptyCourse.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbEmptyCourse.setForeground(new java.awt.Color(255, 0, 0));
+        lbEmptyCourse.setText("* enter the course");
+
+        lbEmptyStudentNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbEmptyStudentNumber.setForeground(new java.awt.Color(255, 0, 0));
+        lbEmptyStudentNumber.setText("* enter the student number");
+
+        lbProfilePicture.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbProfilePicture.setForeground(new java.awt.Color(0, 0, 0));
+        lbProfilePicture.setText("Profile Picture:");
+
+        lbDesProfile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbDesProfile.setForeground(new java.awt.Color(0, 51, 255));
+        lbDesProfile.setText("choose profile picture...");
+
+        btnCaptureProfile.setText("capture profile");
+        btnCaptureProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCaptureProfileMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbStudentNumber)
-                            .addComponent(tfStudentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbGender)
-                            .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbCourse)
-                            .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lbFullName)
-                                .addComponent(tfEmailAddress)
-                                .addComponent(cbYear, 0, 301, Short.MAX_VALUE)
-                                .addComponent(lbYear)
-                                .addComponent(lbEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfFullName))
-                            .addComponent(lbGender1)
-                            .addComponent(cbGender1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelBorder1Layout.createSequentialGroup()
-                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBorder1Layout.createSequentialGroup()
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addComponent(lbDesProfile)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnCaptureProfile))
+                    .addComponent(lbProfilePicture)
+                    .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelBorder1Layout.createSequentialGroup()
+                            .addComponent(lbStudentNumber)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbEmptyStudentNumber))
+                        .addComponent(tfStudentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbGender)
+                        .addComponent(cbGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelBorder1Layout.createSequentialGroup()
+                            .addComponent(lbCourse)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbEmptyCourse))
+                        .addComponent(cbCourse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelBorder1Layout.createSequentialGroup()
+                            .addComponent(lbFullName)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbEmptyFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfEmailAddress)
+                        .addComponent(cbYear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelBorder1Layout.createSequentialGroup()
+                            .addComponent(lbYear)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbEmptyYear))
+                        .addComponent(tfPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelBorder1Layout.createSequentialGroup()
+                            .addComponent(lbEmailAddress)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbEmptyEmailAddress))
+                        .addGroup(panelBorder1Layout.createSequentialGroup()
+                            .addComponent(lbPhoneNumber)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbEmptyPhoneNumber))))
+                .addGap(15, 15, 15))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbStudentNumber)
-                .addGap(0, 0, 0)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbStudentNumber)
+                    .addComponent(lbEmptyStudentNumber))
                 .addComponent(tfStudentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbFullName)
-                .addGap(0, 0, 0)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbFullName)
+                    .addComponent(lbEmptyFullName))
                 .addComponent(tfFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbEmailAddress)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbEmailAddress)
+                    .addComponent(lbEmptyEmailAddress))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbYear)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbPhoneNumber)
+                    .addComponent(lbEmptyPhoneNumber))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbYear)
+                    .addComponent(lbEmptyYear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbYear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(lbCourse)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbCourse)
+                    .addComponent(lbEmptyCourse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,18 +332,19 @@ public class Form_2 extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbGender1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbGender1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbProfilePicture)
+                .addGap(0, 0, 0)
+                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCaptureProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbDesProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
         );
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
@@ -220,15 +357,12 @@ public class Form_2 extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Student #", "Full Name", "Year", "Course", "Gender"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            }
+        ));
+        studentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentTableMouseClicked(evt);
             }
         });
         spTable.setViewportView(studentTable);
@@ -239,7 +373,7 @@ public class Form_2 extends javax.swing.JPanel {
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE)
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 889, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelBorder2Layout.setVerticalGroup(
@@ -254,6 +388,13 @@ public class Form_2 extends javax.swing.JPanel {
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        lbID.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbID.setForeground(new java.awt.Color(0, 0, 0));
+        lbID.setText("ID:");
+
+        tfID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        tfID.setForeground(new java.awt.Color(102, 102, 102));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -261,7 +402,13 @@ public class Form_2 extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -274,8 +421,11 @@ public class Form_2 extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lbID)
+                    .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addComponent(panelBorder2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -284,26 +434,286 @@ public class Form_2 extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    // add new student
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        String studentNumber = tfStudentNumber.getText();
+        String fullName = tfFullName.getText();
+        String emailAddress = tfEmailAddress.getText();
+        String phoneNumber = tfPhoneNumber.getText();
+        String year = cbYear.getSelectedItem().toString();
+        String course = cbCourse.getSelectedItem().toString();
+        String gender = cbGender.getSelectedItem().toString();
+        byte[] profilePicture = null; // Initialize profile picture byte array
+
+        // Check if the profile picture is not empty
+        if (lbDesProfile.getIcon() != null) {
+            // Convert Icon to byte array
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            try {
+                BufferedImage bi = new BufferedImage(lbDesProfile.getIcon().getIconWidth(), lbDesProfile.getIcon().getIconHeight(), BufferedImage.TYPE_INT_RGB);
+                Graphics g = bi.createGraphics();
+                // paint the Icon to the BufferedImage.
+                lbDesProfile.getIcon().paintIcon(null, g, 0, 0);
+                g.dispose();
+                ImageIO.write(bi, "jpg", baos);
+            } catch (IOException ex) {
+                Logger.getLogger(Form_2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            profilePicture = baos.toByteArray();
+        }
+
+        // check if the textfield is empty
+        if (studentNumber.isEmpty() || fullName.isEmpty()) {
+            lbEmptyStudentNumber.setVisible(true);
+            lbEmptyFullName.setVisible(true);
+        } else if (studentNumber.isEmpty()) {
+            lbEmptyStudentNumber.setVisible(true);
+        } else if (fullName.isEmpty()) {
+            lbEmptyStudentNumber.setVisible(false);
+            lbEmptyFullName.setVisible(true);
+        } else {
+            lbEmptyStudentNumber.setVisible(false);
+            lbEmptyFullName.setVisible(false);
+            student.addStudent(studentNumber, fullName, emailAddress, phoneNumber, year, course, gender, profilePicture);
+
+            // refresh the table with Students
+            populateJTableWithStudents();
+
+            // clear the name textfield            
+            tfStudentNumber.setText("");
+            tfFullName.setText("");
+            tfEmailAddress.setText("");
+            tfPhoneNumber.setText("");
+            cbYear.setSelectedItem("");
+            cbCourse.setSelectedItem("");
+            cbGender.setSelectedItem("");
+            lbDesProfile.setIcon(null); // Clear the profile picture icon
+            lbDesProfile.setText("choose profile picture...");
+        }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    // edit the selected student
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        String studentNumber = tfStudentNumber.getText();
+        String fullName = tfFullName.getText();
+        String emailAddress = tfEmailAddress.getText();
+        String phoneNumber = tfPhoneNumber.getText();
+        String year = cbYear.getSelectedItem().toString();
+        String course = cbCourse.getSelectedItem().toString();
+        String gender = cbGender.getSelectedItem().toString();
+        byte[] profilePicture = null; // Initialize profile picture byte array
+
+        // Check if the profile picture is not empty
+        if (lbDesProfile.getIcon() != null) {
+            // Convert Icon to byte array
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            try {
+                BufferedImage bi = new BufferedImage(lbDesProfile.getIcon().getIconWidth(), lbDesProfile.getIcon().getIconHeight(), BufferedImage.TYPE_INT_RGB);
+                Graphics g = bi.createGraphics();
+                // paint the Icon to the BufferedImage.
+                lbDesProfile.getIcon().paintIcon(null, g, 0, 0);
+                g.dispose();
+                ImageIO.write(bi, "jpg", baos);
+            } catch (IOException ex) {
+                Logger.getLogger(Form_2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            profilePicture = baos.toByteArray();
+        }
+
+        // check if the textfield is empty
+        if (studentNumber.isEmpty()) {
+            lbEmptyStudentNumber.setVisible(true);
+        } else if (fullName.isEmpty()) {
+            lbEmptyFullName.setVisible(true);
+        } else {
+            try {
+                int id = Integer.parseInt(tfID.getText());
+                lbEmptyStudentNumber.setVisible(false);
+                lbEmptyFullName.setVisible(false);
+                student.updateStudent(id, studentNumber, fullName, emailAddress, phoneNumber, year, course, gender, profilePicture);
+
+                // refresh the table with Students
+                populateJTableWithStudents();
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid Author ID - " + e.getMessage(), "error", 0);
+            }
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    // clear the textfield
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        tfStudentNumber.setText("");
+        tfFullName.setText("");
+        tfEmailAddress.setText("");
+        tfPhoneNumber.setText("");
+        cbYear.setSelectedItem("");
+        cbCourse.setSelectedItem("");
+        cbGender.setSelectedItem("");
+        lbDesProfile.setText("choose profile picture...");
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    // delete the selected student
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        try {
+            int id = Integer.parseInt(tfID.getText());
+            student.removeStudent(id);
+
+            // refresh the table with Genres
+            populateJTableWithStudents();
+
+            // clear the textfields
+            tfStudentNumber.setText("");
+            tfFullName.setText("");
+            tfEmailAddress.setText("");
+            tfPhoneNumber.setText("");
+            cbYear.setSelectedItem("");
+            cbCourse.setSelectedItem("");
+            cbGender.setSelectedItem("");
+            lbDesProfile.setText("choose profile picture...");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid Author ID - " + e.getMessage(), "error", 0);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    // display the selected genre
+    private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentTableMouseClicked
+        // Get the selected row index
+        int index = studentTable.getSelectedRow();
+
+        // Get values
+        String id = studentTable.getValueAt(index, 0).toString();
+        String studentNumber = studentTable.getValueAt(index, 1).toString();
+        String fullName = studentTable.getValueAt(index, 2).toString();
+        String emailAddress = studentTable.getValueAt(index, 3).toString();
+        String phoneNumber = studentTable.getValueAt(index, 4).toString();
+        String year = studentTable.getValueAt(index, 5).toString();
+        String course = studentTable.getValueAt(index, 6).toString();
+        String gender = studentTable.getValueAt(index, 7).toString();
+
+        // Show data in text fields
+        tfID.setText(id);
+        tfStudentNumber.setText(studentNumber);
+        tfFullName.setText(fullName);
+        tfEmailAddress.setText(emailAddress);
+        tfPhoneNumber.setText(phoneNumber);
+        cbYear.setSelectedItem(year);
+        cbCourse.setSelectedItem(course);
+        cbGender.setSelectedItem(gender);
+
+        // Display profile picture (if available)
+        Icon profilePicture = (Icon) studentTable.getValueAt(index, 8);
+        if (profilePicture != null) {
+            lbDesProfile.setIcon(profilePicture);
+            lbDesProfile.setText(""); // Clear the text
+        } else {
+            lbDesProfile.setIcon(null); // Clear the icon if no profile picture available
+            lbDesProfile.setText("No Profile Picture");
+        }
+    }//GEN-LAST:event_studentTableMouseClicked
+
+    private void btnCaptureProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaptureProfileMouseClicked
+        captureAndDisplayImage();
+    }//GEN-LAST:event_btnCaptureProfileMouseClicked
+
+    private void captureAndDisplayImage() {
+        VideoCapture capture = new VideoCapture(0);
+        if (!capture.isOpened()) {
+            JOptionPane.showMessageDialog(this, "Error: Cannot open the webcam", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Mat frame = new Mat();
+        if (capture.read(frame)) {
+            MatOfByte buffer = new MatOfByte();
+            Imgcodecs.imencode(".jpg", frame, buffer);
+
+            try {
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(buffer.toArray()));
+                ImageIcon icon = new ImageIcon(image);
+                lbDesProfile.setIcon(icon);
+                lbDesProfile.setText("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: Cannot capture the image", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        capture.release();
+    }
+
+    // function to populate the jtable with authors
+    public void populateJTableWithStudents() {
+        ArrayList<model.Student> studentList = student.studentList();
+
+        // jtable columns
+        String[] colNames = {"ID", "Student Number", "Full Name", "Email Address", "Phone Number", "Year", "Course", "Gender", "Profile Picture"};
+
+        // row
+        Object[][] rows = new Object[studentList.size()][colNames.length];
+
+        for (int i = 0; i < studentList.size(); i++) {
+            model.Student student = studentList.get(i);
+            rows[i][0] = student.getId();
+            rows[i][1] = student.getStudentNumber();
+            rows[i][2] = student.getFullName();
+            rows[i][3] = student.getEmailAddress();
+            rows[i][4] = student.getPhoneNumber();
+            rows[i][5] = student.getYear();
+            rows[i][6] = student.getCourse();
+            rows[i][7] = student.getGender();
+
+            // Convert byte array to Icon for profile picture
+            byte[] profilePictureData = student.getProfilePicture();
+            if (profilePictureData != null && profilePictureData.length > 0) {
+                try {
+                    BufferedImage img = ImageIO.read(new ByteArrayInputStream(profilePictureData));
+                    ImageIcon icon = new ImageIcon(img);
+                    rows[i][8] = icon;
+                } catch (IOException ex) {
+                    Logger.getLogger(Form_2.class.getName()).log(Level.SEVERE, null, ex);
+                    // Display a default profile picture icon if loading fails
+                    rows[i][8] = new ImageIcon(getClass().getResource("/default_profile_picture.png"));
+                }
+            } else {
+                rows[i][8] = null; // If profile picture data is null, set null in table
+            }
+        }
+
+        DefaultTableModel model = new DefaultTableModel(rows, colNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        studentTable.setModel(model);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCaptureProfile;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbCourse;
     private javax.swing.JComboBox<String> cbGender;
-    private javax.swing.JComboBox<String> cbGender1;
     private javax.swing.JComboBox<String> cbYear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbCourse;
+    private javax.swing.JLabel lbDesProfile;
     private javax.swing.JLabel lbEmailAddress;
+    private javax.swing.JLabel lbEmptyCourse;
+    private javax.swing.JLabel lbEmptyEmailAddress;
+    private javax.swing.JLabel lbEmptyFullName;
+    private javax.swing.JLabel lbEmptyPhoneNumber;
+    private javax.swing.JLabel lbEmptyStudentNumber;
+    private javax.swing.JLabel lbEmptyYear;
     private javax.swing.JLabel lbFullName;
     private javax.swing.JLabel lbGender;
-    private javax.swing.JLabel lbGender1;
+    private javax.swing.JLabel lbID;
+    private javax.swing.JLabel lbPhoneNumber;
+    private javax.swing.JLabel lbProfilePicture;
     private javax.swing.JLabel lbStudentNumber;
     private javax.swing.JLabel lbYear;
     private swing.PanelBorder panelBorder1;
@@ -312,6 +722,8 @@ public class Form_2 extends javax.swing.JPanel {
     private swing.Table studentTable;
     private javax.swing.JTextField tfEmailAddress;
     private javax.swing.JTextField tfFullName;
+    private javax.swing.JTextField tfID;
+    private javax.swing.JTextField tfPhoneNumber;
     private javax.swing.JTextField tfStudentNumber;
     // End of variables declaration//GEN-END:variables
 }

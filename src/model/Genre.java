@@ -50,6 +50,7 @@ public class Genre {
             PreparedStatement ps = db.getConnection().prepareStatement(insertQuery);
 
             ps.setString(1, name);
+            
             if (ps.executeUpdate() != 0) {
                 JOptionPane.showMessageDialog(null, "Genre Added", "add genre", 1);
             } else {
@@ -101,13 +102,10 @@ public class Genre {
     public ArrayList<Genre> genreList() {
         ArrayList<Genre> gList = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM book_genres";
-        ResultSet rs;
-        PreparedStatement ps;
+        model.Func_Class func = new Func_Class();
 
         try {
-            ps = db.getConnection().prepareStatement(selectQuery);
-            rs = ps.executeQuery();
+            ResultSet rs = func.getData("SELECT * FROM book_genres");
 
             Genre genre;
             while (rs.next()) {

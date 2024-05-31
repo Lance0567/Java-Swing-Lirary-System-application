@@ -64,6 +64,7 @@ public class Form_8 extends javax.swing.JPanel {
         lbStudentNumber.setText("ID:");
 
         tfID.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tfID.setForeground(new java.awt.Color(102, 102, 102));
 
         btnUpdate.setBackground(new java.awt.Color(51, 51, 51));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -110,6 +111,7 @@ public class Form_8 extends javax.swing.JPanel {
         lbFullName.setText("Name:");
 
         tfName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tfName.setForeground(new java.awt.Color(102, 102, 102));
 
         lbWarning.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbWarning.setForeground(new java.awt.Color(255, 0, 51));

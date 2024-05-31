@@ -23,11 +23,11 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import model.Author;
 
-public class Form_9 extends javax.swing.JPanel {
+public class Form_10 extends javax.swing.JPanel {
 
     model.Author author = new model.Author();
 
-    public Form_9() {
+    public Form_10() {
         initComponents();
         
         // connected class
@@ -55,7 +55,7 @@ public class Form_9 extends javax.swing.JPanel {
         header.setDefaultRenderer(new HeaderRenderer(authorTable));
         header.setOpaque(false);
 
-        // populate Jtable With Authors
+        // populate Jtable With Genres
         populateJTableWithAuthors();
     }
 
@@ -356,7 +356,7 @@ public class Form_9 extends javax.swing.JPanel {
             lbEmptyLastName.setVisible(false);
             author.addAuthor(firstName, lastName, expertise, about);
 
-            // refresh the table with Authors
+            // refresh the table with Genres
             populateJTableWithAuthors();
 
             // clear the name textfield            
@@ -386,7 +386,7 @@ public class Form_9 extends javax.swing.JPanel {
                 lbEmptyLastName.setVisible(false);
                 author.updateAuthor(id, firstname, lastname, expertise, about);
 
-                // refresh the table with Authors
+                // refresh the table with Genres
                 populateJTableWithAuthors();
 
             } catch (NumberFormatException e) {

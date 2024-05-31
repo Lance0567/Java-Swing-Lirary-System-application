@@ -7,6 +7,7 @@ package main;
 
 import event.EventMenuSelected;
 import form.Form_1;
+import form.Form_10;
 import form.Form_2;
 import form.Form_3;
 import form.Form_8;
@@ -14,6 +15,7 @@ import form.Form_9;
 import form.Form_Home;
 import java.awt.Color;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import swing.ScrollBar;
 
 /**
@@ -31,6 +33,7 @@ public class Main extends javax.swing.JFrame {
     private Form_3 form3;
     private Form_8 form8;
     private Form_9 form9;
+    private Form_10 form10;
 
     public Main() {
         initComponents();
@@ -41,6 +44,7 @@ public class Main extends javax.swing.JFrame {
         form3 = new Form_3();
         form8 = new Form_8();
         form9 = new Form_9();
+        form10 = new Form_10();
         menu.initMoving(Main.this);
 //        sp.setVerticalScrollBar(new ScrollBar()); Scroll bar
         menu.addEventMenuSelected(new EventMenuSelected() {
@@ -58,7 +62,9 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 8) {
                     setForm(form8);
                 } else if (index == 9) {
-                    setForm(form9);                
+                    setForm(form10);                
+                } else if (index == 10) {
+                    setForm(form9); 
                 } else if (index == 13) {
                     Login login = new Login();
                     login.setVisible(true);                       
@@ -148,6 +154,11 @@ public class Main extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        JFrame frame = new JFrame("Capture Profile");
+        frame.setContentPane(new Form_2());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

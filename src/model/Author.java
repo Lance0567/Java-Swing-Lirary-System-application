@@ -133,14 +133,12 @@ public class Author {
     // function to populate arraylist with authors
     public ArrayList<Author> authorList() {
         ArrayList<Author> aList = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM author";
-        ResultSet rs;
-        PreparedStatement ps;
+                         
+        model.Func_Class func = new Func_Class();
 
         try {
-            ps = db.getConnection().prepareStatement(selectQuery);
-            rs = ps.executeQuery();
+            
+            ResultSet rs = func.getData("SELECT * FROM author");
 
             Author author;
             while (rs.next()) {
